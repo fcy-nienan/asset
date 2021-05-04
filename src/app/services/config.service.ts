@@ -8,6 +8,4 @@ export class configService{
   ip: string = 'http://127.0.0.1'
   port: number = 8092;
   host: string = this.ip + ":" + this.port;
-  token: string;
-  current_user: User;
 }

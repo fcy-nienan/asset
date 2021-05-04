@@ -1,56 +1,80 @@
-<nz-descriptions nzTitle="个人中心" [nzExtra]="extraTpl">
-  <nz-descriptions-item nzTitle="姓名">{{user.userName}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="手机">{{user.telephone}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="邮箱">{{user.email}}</nz-descriptions-item>
-  <nz-descriptions-item nzTitle="个性签名">{{user.signature}}</nz-descriptions-item>
+<nz-descriptions nzTitle="个人中心" [nzExtra]="extraTpl" [nzColumn]="3" [nzColon]="false">
+  <nz-descriptions-item nzTitle="姓名">{{userDetail.userName}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="手机">{{userDetail.telephone}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="邮箱">{{userDetail.email}}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="个性签名">{{userDetail.signature}}</nz-descriptions-item>
 </nz-descriptions>
 <ng-template #extraTpl>
   <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="show_edit_info = true">编辑</button>
+  <button nz-button class="login-form-button login-form-margin" style="margin-left:30px;" [nzType]="'primary'" (click)="show_change_password = true">修改密码</button>
 </ng-template>
 <nz-modal [(nzVisible)]="show_edit_info" nzTitle="个人信息编辑" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
-    <form nz-form class="login-form" (ngSubmit)="edit_user()">
+    <form nz-form class="login-form">
       <nz-form-item>
         <nz-form-control nzErrorTip="请输入用户名!">
           <nz-input-group nzPrefixIcon="user">
-            <input type="text" nz-input [(ngModel)]="user.userName" name="userName"  placeholder="请输入用户名" />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control nzErrorTip="请输入手机号!">
-          <nz-input-group nzPrefixIcon="lock">
-            <input type="text" nz-input [(ngModel)]="user.telephone" name="password" placeholder="请输入密码" />
+            <input type="text" nz-input disabled [(ngModel)]="editUserDetail.userName" name="userName"  placeholder="请输入用户名" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control nzErrorTip="请输入手机号!">
           <nz-input-group nzPrefixIcon="phone">
-            <input type="text" nz-input [(ngModel)]="user.email" name="telephone" placeholder="请输入手机号" />
+            <input type="text" nz-input [(ngModel)]="editUserDetail.telephone" name="telephone" placeholder="请输入手机号" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control nzErrorTip="请输入邮箱!">
-          <nz-input-group nzPrefixIcon="lock">
-            <input type="text" nz-input [(ngModel)]="user.email" name="email" placeholder="请输入邮箱" />
+          <nz-input-group nzPrefixIcon="carry-out">
+            <input type="text" nz-input [(ngModel)]="editUserDetail.email" name="email" placeholder="请输入邮箱" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control nzErrorTip="请输入个人签名!">
-          <nz-input-group nzPrefixIcon="lock">
-            <input type="text" nz-input [(ngModel)]="user.signature" name="signature" placeholder="请输入个人签名" />
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input [(ngModel)]="editUserDetail.signature" name="signature" placeholder="请输入个人签名" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
-<!--      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">取消</button>-->
     </form>
-
   </ng-container>
 </nz-modal>
-<nz-table #basicTable [nzData]="asset_use_history">
+<nz-modal [(nzVisible)]="show_change_password" nzTitle="修改密码" (nzOnCancel)="show_change_password = false" (nzOnOk)="change_password()">
+  <ng-container *nzModalContent>
+    <form nz-form >
+      <nz-form-item>
+        <nz-form-control nzErrorTip="请输入邮箱验证码"  [nzSm]="16">
+          <nz-input-group nzPrefixIcon="lock">
+            <input [(ngModel)]="email_code" name="code" nz-input placeholder=验证码  [maxLength]="6" pattern="^\d{6}$" required/>
+          </nz-input-group>
+        </nz-form-control>
+        <nz-form-control [nzSm]="4">
+          <button nz-button type="button"  (click)="forget_password_send_code()">
+            {{ has_send_code ?  send_code_timeout + '秒后重新获取' : '获取验证码 '}}
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="请输入新密码!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input [(ngModel)]="password" name="password" placeholder="请输入新密码" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="请再次输入新密码!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input [(ngModel)]="confirm_password" name="confirm_password" placeholder="请再次输入新密码" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
+<nz-table #basicTable [nzData]="this.userDetail.assetUseHistoryBOList">
   <thead>
   <tr>
     <th>资产编号</th>
@@ -62,14 +86,11 @@
   </thead>
   <tbody>
   <tr *ngFor="let data of basicTable.data">
-    <td>{{data.name}}</td>
-    <td>{{data.age}}</td>
-    <td>{{data.address}}</td>
-    <td>
-      <a>Action 一 {{data.name}}</a>
-      <nz-divider nzType="vertical"></nz-divider>
-      <a>Delete</a>
-    </td>
+    <td>{{data.id}}</td>
+    <td>{{data.assetName}}</td>
+    <td>{{ data.applyType | mzDict: "usage_type" }}</td>
+    <td>{{data.startTime}}</td>
+    <td>{{ data.status | mzDict: "deal_result" }}</td>
   </tr>
   </tbody>
 </nz-table>

@@ -1,1 +1,64 @@
-<p>log-list works!</p>
+<nz-descriptions nzTitle="资产列表" [nzColumn]="2" [nzColon]="false">
+  <nz-descriptions-item nzTitle="编号">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.assetId"  name="assetId" placeholder="编号" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="电话">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.telephone"  name="telephone"  placeholder="电话" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="级别">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.jobLevel" name="jobLevel"   placeholder="级别" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="姓名">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.userName" name="userName"   placeholder="姓名" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="状态">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.status" name="status"   placeholder="状态" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="clear_search()">清空</button>
+    <button nz-button class="login-form-button login-form-margin" style="margin-left:30px;" [nzType]="'primary'" (click)="search()">搜索</button>
+  </nz-descriptions-item>
+</nz-descriptions>
+
+<nz-table #basicTable [nzData]="this.asset_apply_list">
+  <thead>
+  <tr>
+    <th>资产编号</th>
+    <th>申请人</th>
+    <th>申请类型</th>
+    <th>申请数量</th>
+    <th>申请时间</th>
+    <th>状态</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{data.assetId}}</td>
+    <td>{{data.userName}}</td>
+    <td>{{data.type}}</td>
+    <td>{{data.number}}</td>
+    <td>{{data.number}}</td>
+    <td>{{data.number}}</td>
+    <td>
+      <a (click)="agree(data)">同意</a>
+      <nz-divider  nzType="vertical"></nz-divider>
+      <a (click)="dis_agree(data)">拒绝</a>
+      <nz-divider  nzType="vertical"></nz-divider>
+      <a (click)="apply_detail(data)">申请详情</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+
+
+
+
+
+
+
+
+
+
+

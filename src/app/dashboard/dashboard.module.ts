@@ -11,18 +11,24 @@ import { UserListComponent } from './user-list/user-list.component';
 import { LogListComponent } from './log-list/log-list.component';
 import { AssetListComponent } from './asset-list/asset-list.component';
 import { WareListComponent } from './ware-list/ware-list.component';
-import { EditUserComponent } from './user-list/edit-user/edit-user.component';
-import { EditAssetComponent } from './asset-list/edit-asset/edit-asset.component';
 import { AssetHistoryComponent } from './asset-list/asset-history/asset-history.component';
 import { OperationListComponent } from './log-list/operation-list/operation-list.component';
-import {FormsModule} from "@angular/forms";
 import {NzDescriptionsModule} from "ng-zorro-antd/descriptions";
 import {NzModalModule} from "ng-zorro-antd/modal";
-import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzDividerModule} from "ng-zorro-antd/divider";
 import {NzButtonModule} from "ng-zorro-antd/button";
+import {NzDropDownModule} from "ng-zorro-antd/dropdown";
+import {NzPageHeaderModule} from "ng-zorro-antd/page-header";
+import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
+import {NzFormModule} from "ng-zorro-antd/form";
+import {FormsModule} from "@angular/forms";
+import { DataPipe } from '../data.pipe';
+import {NzSelectModule} from "ng-zorro-antd/select";
+import {NzRadioModule} from "ng-zorro-antd/radio";
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import {NzInputNumberModule} from "ng-zorro-antd/input-number";
 
 @NgModule({
   declarations: [
@@ -32,10 +38,9 @@ import {NzButtonModule} from "ng-zorro-antd/button";
     LogListComponent,
     AssetListComponent,
     WareListComponent,
-    EditUserComponent,
-    EditAssetComponent,
     AssetHistoryComponent,
-    OperationListComponent
+    OperationListComponent,
+    DataPipe
   ],
   imports: [
     CommonModule,
@@ -43,14 +48,21 @@ import {NzButtonModule} from "ng-zorro-antd/button";
     NzLayoutModule,
     NzMenuModule,
     NzIconModule,
-    FormsModule,
     NzDescriptionsModule,
     NzModalModule,
-    NzFormModule,
     NzInputModule,
     NzTableModule,
     NzDividerModule,
-    NzButtonModule
+    NzButtonModule,
+    NzDropDownModule,
+    NzPageHeaderModule,
+    NzBreadCrumbModule,
+    NzFormModule,
+    FormsModule,
+    NzSelectModule,
+    NzRadioModule,
+    NzDatePickerModule,
+    NzInputNumberModule,
   ]
 })
 export class DashboardModule { }

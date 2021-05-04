@@ -1,1 +1,122 @@
-<p>user-list works!</p>
+<nz-descriptions nzTitle="用户列表" [nzExtra]="extraTpl" [nzColumn]="2"  [nzColon]="false">
+  <nz-descriptions-item nzTitle="编号" nzSpan="1">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.id"  name="id" placeholder="编号" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="姓名" nzSpan="1">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.userName"   name="userName"  placeholder="姓名" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="电话" nzSpan="1">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.telephone"  name="telephone"  placeholder="电话" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="级别" nzSpan="1">
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="级别" nzSize="default" [(ngModel)]="search_params.jobLevel">
+      <nz-option nzLabel="普通学生用户" nzValue=1></nz-option>
+      <nz-option nzLabel="教师用户" nzValue=2></nz-option>
+      <nz-option nzLabel="管理员" nzValue=3></nz-option>
+      <nz-option nzLabel="超级管理员" nzValue=4></nz-option>
+    </nz-select>
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="状态">
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="状态" nzSize="default" [(ngModel)]="search_params.status">
+      <nz-option nzLabel="未审核" nzValue=0></nz-option>
+      <nz-option nzLabel="冻结" nzValue=1></nz-option>
+      <nz-option nzLabel="正常" nzValue=2></nz-option>
+    </nz-select>
+  </nz-descriptions-item>
+  <nz-descriptions-item nzSpan="2">
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="clear_search()">清空</button>
+    <button nz-button class="login-form-button login-form-margin" style="margin-left:30px;" [nzType]="'primary'" (click)="search()">搜索</button>
+  </nz-descriptions-item>
+</nz-descriptions>
+<ng-template #extraTpl>
+  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="click_add_user()">新增用户</button>
+</ng-template>
+<nz-table #basicTable [nzData]="this.user_list">
+  <thead>
+  <tr>
+    <th>编号</th>
+    <th>姓名</th>
+    <th>电话</th>
+    <th>级别</th>
+    <th>状态</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{data.id}}</td>
+    <td>{{data.userName}}</td>
+    <td>{{data.telephone}}</td>
+    <td>{{data.jobLevel | mzDict :'job_level'}}</td>
+    <td>{{ data.status | mzDict: 'user_status'}}</td>
+    <td>
+      <a (click)="show_deit_user(data)">编辑</a>
+      <nz-divider  nzType="vertical"></nz-divider>
+      <a (click)="delete_user(data)">刪除</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+
+<nz-modal [(nzVisible)]="show_edit" [nzTitle]="title" (nzOnCancel)="handleCancel()" (nzOnOk)="confirm_edit()">
+  <ng-container *nzModalContent>
+
+    <form nz-form  class="login-form" >
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">用户名</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <input type="text" nz-input [(ngModel)]="current_user.userName" name="userName"  placeholder="请输入用户名" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">密码</nz-form-label>
+        <nz-form-control >
+          <nz-input-group >
+            <input type="password" nz-input [(ngModel)]="current_user.password" name="password" placeholder="请输入密码" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">手机号</nz-form-label>
+        <nz-form-control >
+          <nz-input-group >
+            <input type="text" nz-input [(ngModel)]="current_user.telephone" name="telephone" placeholder="请输入手机号" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">邮箱</nz-form-label>
+        <nz-form-control >
+          <nz-input-group >
+            <input type="text" nz-input [(ngModel)]="current_user.email" name="email" placeholder="请输入邮箱" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">级别</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="级别" nzSize="default" [(ngModel)]="current_user.jobLevel">
+              <nz-option nzLabel="普通学生用户" nzValue=1></nz-option>
+              <nz-option nzLabel="教师用户" nzValue=2></nz-option>
+              <nz-option nzLabel="管理员" nzValue=3></nz-option>
+              <nz-option nzLabel="超级管理员" nzValue=4></nz-option>
+            </nz-select>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">请输入个人签名</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <input type="text" nz-input [(ngModel)]="current_user.signature" name="signature" placeholder="请输入个人签名" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>

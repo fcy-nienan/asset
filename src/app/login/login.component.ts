@@ -3,7 +3,7 @@ import {fromEvent, interval, Observable} from "rxjs";
 import {User} from "../model/User";
 import {CreateParams, JsonResponse, MyHttpUrlEncodingCodec, SearchParams} from "../model/http_helper";
 import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest, HttpUrlEncodingCodec } from '@angular/common/http';
-import {NzButtonComponent, NzMessageService} from 'ng-zorro-antd';
+import {NzMessageService} from 'ng-zorro-antd/message';
 import {Router} from "@angular/router";
 import {userService} from "../services/user.service";
 import {map, switchMapTo, take, tap} from "rxjs/operators";
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   display_success_result = false;
   count_down(): void {
     interval(1000)
-      .pipe(take( 1))   // 注意哦，这里是做 +1 的操作
+      .pipe(take( this.send_code_timeout))
       .subscribe({
         next: (value: number) => {
           this.has_send_code = true ;
@@ -80,8 +80,6 @@ export class LoginComponent implements OnInit {
     }).subscribe(res => {
       console.log(res);
       if (res.code === 200) {
-        this.configService.token = res.result.token;
-        this.configService.current_user  = res.result.user;
         console.log(this.configService);
         localStorage.setItem("token",res.result.token);
         localStorage.setItem("current_user",JSON.stringify(res.result.user));

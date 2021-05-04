@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import {LOGIN_ROUTES} from './login-routing.module';
 import { LoginComponent } from './login.component';
-import {NzFormModule} from 'ng-zorro-antd/form';
 import {NzButtonModule} from 'ng-zorro-antd/button';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgZorroAntdModule} from "ng-zorro-antd";
+import {NzResultModule} from "ng-zorro-antd/result";
+import {NzFormModule} from "ng-zorro-antd/form";
+import {FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     LoginComponent
@@ -14,11 +14,10 @@ import {NgZorroAntdModule} from "ng-zorro-antd";
   imports: [
     LOGIN_ROUTES,
     CommonModule,
-    NzFormModule,
     NzButtonModule,
-    ReactiveFormsModule,
+    NzResultModule,
+    NzFormModule,
     FormsModule,
-    NgZorroAntdModule
   ]
 })
 export class LoginModule { }

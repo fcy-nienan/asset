@@ -1,1 +1,33 @@
-<p>operation-list works!</p>
+
+
+<nz-descriptions nzTitle="资产列表" [nzColumn]="3" [nzColon]="false">
+  <nz-descriptions-item nzTitle="操作人">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.userName"  placeholder="编号" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="起始时间">
+    <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="search_params.dataFrom" name="dataFrom" nzSize="default"></nz-date-picker>
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="结束时间">
+    <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="search_params.dataEnd" name="dataEnd" nzSize="default"></nz-date-picker>
+  </nz-descriptions-item>
+  <nz-descriptions-item>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="clear_search()">清空</button>
+    <button nz-button class="login-form-button login-form-margin" style="margin-left:30px;" [nzType]="'primary'" (click)="search()">搜索</button>
+  </nz-descriptions-item>
+</nz-descriptions>
+<nz-table #basicTable [nzData]="this.oper_log_list">
+  <thead>
+  <tr>
+    <th>操作人</th>
+    <th>操作内容</th>
+    <th>操作時間</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{data.userName}}</td>
+    <td>{{data.remarks}}</td>
+    <td>{{data.startTime}}</td>
+  </tr>
+  </tbody>
+</nz-table>

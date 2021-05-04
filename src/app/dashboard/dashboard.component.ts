@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../model/User";
 import {DashBoardRoutes, DashboardRoutingModule} from "./dashboard-routing.module";
-import {NzMessageService} from "ng-zorro-antd";
 import {userService} from "../services/user.service";
 import {assetService} from "../services/asset.service";
 import {logService} from "../services/log.service";
 import {fileService} from "../services/file.service";
 import {wareService} from "../services/ware.service";
 import {Router} from "@angular/router";
+import {NzMessageService} from "ng-zorro-antd/message";
+import {configService} from "../services/config.service";
 interface DashboardMenu {
   name: string;
   url?: string;
@@ -19,7 +20,7 @@ interface DashboardMenu {
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
 
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit {
               public log_service: logService,
               public file_service: fileService,
               public ware_service: wareService,
+              public configService: configService,
               private router: Router) { }
   isCollapsed = false;
   show_menu = true;
@@ -37,9 +39,13 @@ export class DashboardComponent implements OnInit {
   breads = [];
 
   ngOnInit(): void {
+    console.log(this.configService)
+    this.current_user = JSON.parse(localStorage.getItem("current_user"));
   }
 
   signOut() {
+    localStorage.setItem("token","");
+    localStorage.setItem("current_user","");
     this.router.navigate(['login'])
   }
 
@@ -58,7 +64,6 @@ export class DashboardComponent implements OnInit {
       icon: 'iconbank-fill',
       children: [
         {name: '资产列表', url: ''},
-        {name: '资产编辑', url: 'edit'},
         {name: '资产使用历史', url: 'history'}
       ]
     },
@@ -68,7 +73,6 @@ export class DashboardComponent implements OnInit {
       module: 'users',
       icon: 'iconxueyuan', children: [
         {name: '用户列表', url: ''},
-        {name: '用户编辑', url: 'edit'}
       ]
     },
     {

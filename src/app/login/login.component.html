@@ -2,8 +2,7 @@
   <div class="login-body">
     <img src="../assets/logo.png" class="logo"/>
     <div class="login-container">
-
-      <form nz-form *ngIf="model === 'login'" class="login-form" (ngSubmit)="login()">
+      <form nz-form *ngIf="model === 'login'"  (ngSubmit)="login()">
         <nz-form-item>
           <nz-form-control nzErrorTip="请输入用户名!">
             <nz-input-group nzPrefixIcon="user">
@@ -18,8 +17,6 @@
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
-
-
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">登录</button>
         <span><a class="login-form-forgot" (click)="forget_password_page()">忘记密码</a></span>
         <span><a class="login-form-forgot" (click)="to_page('register')">注册</a></span>
@@ -127,8 +124,8 @@
     <img  src="../assets/index_bottom.png" class="bottom-banner"/>
   </div>
   <div class="copy-right">
-    <span>版权所有:上海墨说科教设备有限公司</span>
-    <a class="copy-right-link" style="margin-left: 10px;" href="http://beian.miit.gov.cn/state/outPortal/loginPortal.action" target="_blank">沪ICP备18013758号</a>
+    <span>学院固定资产管理系统</span>
+<!--    <a class="copy-right-link" style="margin-left: 10px;" href="http://beian.miit.gov.cn/state/outPortal/loginPortal.action" target="_blank">沪ICP备18013758号</a>-->
   </div>
 
 </div>

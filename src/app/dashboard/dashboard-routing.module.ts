@@ -6,10 +6,8 @@ import {UserListComponent} from "./user-list/user-list.component";
 import {WareListComponent} from "./ware-list/ware-list.component";
 import {AssetListComponent} from "./asset-list/asset-list.component";
 import {DashboardComponent} from "./dashboard.component";
-import {EditUserComponent} from "./user-list/edit-user/edit-user.component";
 import {LogListComponent} from "./log-list/log-list.component";
 import {OperationListComponent} from "./log-list/operation-list/operation-list.component";
-import {EditAssetComponent} from "./asset-list/edit-asset/edit-asset.component";
 import {AssetHistoryComponent} from "./asset-list/asset-history/asset-history.component";
 
 export const DashBoardRoutes: Routes = [
@@ -36,11 +34,6 @@ export const DashBoardRoutes: Routes = [
             path: "",
             data: {bread: '用户列表', permission: 'student/students'},
             component: UserListComponent
-          },
-          {
-            path: "edit",
-            data: {bread: '用户编辑', permission: 'student/students'},
-            component: EditUserComponent
           }
         ]
       },
@@ -79,11 +72,6 @@ export const DashBoardRoutes: Routes = [
             path: "",
             data: {bread: '资产列表', permission: 'student/students'},
             component: AssetListComponent
-          },
-          {
-            path: "edit",
-            data: {bread: '资产编辑', permission: 'student/students'},
-            component: EditAssetComponent
           },
           {
             path: "history",

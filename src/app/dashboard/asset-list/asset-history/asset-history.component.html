@@ -1,1 +1,50 @@
-<p>asset-history works!</p>
+<nz-descriptions nzTitle="资产列表" [nzColumn]="3" [nzColon]="false">
+  <nz-descriptions-item nzTitle="编号">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.assetId"  placeholder="编号" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="使用人">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.userName"  placeholder="仓库名" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="资产名">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.assetName" placeholder="资产名" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="类型">
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="状态" nzSize="default" [(ngModel)]="search_params.type">
+      <nz-option nzLabel="空闲" nzValue=0></nz-option>
+      <nz-option nzLabel="借用中" nzValue=1></nz-option>
+      <nz-option nzLabel="使用中" nzValue=2></nz-option>
+      <nz-option nzLabel="维修中" nzValue=3></nz-option>
+      <nz-option nzLabel="报废" nzValue=4></nz-option>
+    </nz-select>
+  </nz-descriptions-item>
+  <nz-descriptions-item>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="clear_search()">清空</button>
+    <button nz-button class="login-form-button login-form-margin" style="margin-left:30px;" [nzType]="'primary'" (click)="search()">搜索</button>
+  </nz-descriptions-item>
+</nz-descriptions>
+<nz-table #basicTable [nzData]="this.asset_info_history">
+  <thead>
+  <tr>
+    <th>资产编号</th>
+    <th>资产名</th>
+    <th>使用人</th>
+    <th>开始时间</th>
+    <th>使用时间</th>
+    <th>类型</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{data.id}}</td>
+    <td>{{data.assetName}}</td>
+    <td>{{data.userName}}</td>
+    <td>{{data.startTime}}</td>
+    <td>{{ data.startTime}}</td>
+    <td>{{ data.status  | mzDict: "can_borrow" }}</td>
+    <td>{{ data.result}}</td>
+    <td>
+
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

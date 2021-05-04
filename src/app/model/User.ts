@@ -58,6 +58,34 @@ export class AssetList{
   wareHouseName: string;
   assetNum: number;
 }
+export class AssetApplyBO{
+  constructor(asset_list: AssetList) {
+    this.assetName = asset_list.assetName;
+    this.mapId = asset_list.id;
+    this.assetVersion = asset_list.version;
+    this.assetId = asset_list.id;
+
+  }
+  mapId: number;
+  type: number;
+  number: number;
+  userName: string;
+  assetId: number;
+  assetName: string;
+  assetVersion: string;
+  address: string;
+  purpose: string;
+
+  startTime: string;
+  endTime: string;
+  urgency: number;
+  remarks: string;
+  result: number;
+  image1: string;
+  image2: string;
+  image3: string;
+
+}
 export class AssetLogInfoDetail{
   type: number;
   number: number;
@@ -92,6 +120,10 @@ export class AssetUseHistory{
   result: number;
 }
 export class IndexData{
+  constructor() {
+    this.assetLendRankList = [];
+    this.assetUseHalfYearBOList = [];
+  }
   assetSum: number;
   assetInUse: number;
   lendAssetNum: number;
@@ -124,6 +156,9 @@ export  class RegisterUserBO{
   passwordAgain: string;
 }
 export  class UserDetail{
+  constructor() {
+    this.assetUseHistoryBOList = [];
+  }
   id: number;
   userName: string;
   signature: string;
@@ -155,4 +190,33 @@ export  class WareHouse{
 export class WareHouseBox{
   id: number;
   name: string;
+}
+export class AssetType{
+  id: number;
+  typeName: string;
+  createTime: string;
+  isDelete: number;
+}
+
+export class AssetInfo{
+  id: number;
+  assetName: string;
+  typeId: number;
+  version: string;
+  manufacture: string;
+  price: number;
+  status: number;
+  purchaseDate: string;
+  life: number;
+  useType: number;
+  manageId: number;
+  warehouseId: number;
+  mapId: number;
+  assetNum: number;
+  remarks: string;
+  image1: string;
+  isDelete: number;
+  image2: string;
+  image3: string;
+
 }

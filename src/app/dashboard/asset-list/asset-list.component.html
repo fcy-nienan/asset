@@ -1,1 +1,261 @@
-<p>asset-list works!</p>
+<nz-descriptions nzTitle="资产列表" [nzColumn]="3" [nzColon]="false">
+  <nz-descriptions-item nzTitle="编号">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.assetId"  placeholder="编号" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="仓库名">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.warehouseName"  placeholder="仓库名" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="资产名">
+    <input nz-input nzAllowClear [(ngModel)]="search_params.assetName" placeholder="资产名" nzSize="default" />
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="状态">
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="状态" nzSize="default" [(ngModel)]="search_params.status">
+      <nz-option nzLabel="空闲" nzValue=0></nz-option>
+      <nz-option nzLabel="借用中" nzValue=1></nz-option>
+      <nz-option nzLabel="使用中" nzValue=2></nz-option>
+      <nz-option nzLabel="维修中" nzValue=3></nz-option>
+      <nz-option nzLabel="报废" nzValue=4></nz-option>
+    </nz-select>
+  </nz-descriptions-item>
+  <nz-descriptions-item>
+    <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="clear_search()">清空</button>
+    <button nz-button class="login-form-button login-form-margin" style="margin-left:30px;" [nzType]="'primary'" (click)="search()">搜索</button>
+  </nz-descriptions-item>
+</nz-descriptions>
+<ng-template #extraTpl>
+  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="show_create_asset = true">申请采购</button>
+</ng-template>
+
+<nz-table #basicTable [nzData]="this.asset_list">
+  <thead>
+  <tr>
+    <th>资产编号</th>
+    <th>资产名</th>
+    <th>数量</th>
+    <th>资产类型</th>
+    <th>资产状态</th>
+    <th>仓库</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{data.id}}</td>
+    <td>{{data.assetName}}</td>
+    <td>{{data.assetNum}}</td>
+    <td>{{data.version}}</td>
+    <td>{{ data.status | mzDict: "asset_info_status" }}</td>
+    <td>{{ data.warehouseName}}</td>
+    <td>
+<!--      <a (click)="show_dialog('detail',data)">详情</a>-->
+<!--      <nz-divider nzType="vertical"></nz-divider>-->
+      <a (click)="show_dialog('borrow',data)">借用</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a (click)="show_dialog('apply',data)">申请</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a (click)="show_dialog('use',data)">使用</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a (click)="show_dialog('fallback',data)">反馈</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-modal [(nzVisible)]="show_create_asset" [nzTitle]="title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <form nz-form class="login-form">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">资产名</nz-form-label>
+        <nz-form-control>
+          <nz-input-group >
+            <input type="text" nz-input [(ngModel)]="current_edit.assetName" name="assetName"  />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+
+
+      <ng-container *ngIf="type === 'detail'">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">开始借用时间</nz-form-label>
+          <nz-form-control >
+            <nz-input-group >
+              <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="current_edit.startTime" name="startTime"></nz-date-picker>
+              <!--            <input type="text" nz-input [(ngModel)]="current_edit.startTime" name="startTime" />-->
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">归还时间</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="current_edit.endTime" name="endTime"></nz-date-picker>
+              <!--            <input type="text" nz-input [(ngModel)]="current_edit.endTime" name="endTime"  />-->
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">紧急情况</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <nz-radio-group [(ngModel)]="current_edit.urgency" nzName="radiogroup" name="urgency">
+                <label nz-radio nzValue="1">不急</label>
+                <label nz-radio nzValue="2">一般</label>
+                <label nz-radio nzValue="3">急用</label>
+              </nz-radio-group>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">备注</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <input type="text" nz-input [(ngModel)]="current_edit.remarks" name="remarks"  />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+
+
+
+
+      <ng-container *ngIf="type === 'apply'">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">使用地点</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <input type="text" nz-input [(ngModel)]="current_edit.address" name="address" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">数量</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <nz-input-number [(ngModel)]="current_edit.number" [nzMin]="1" [nzMax]="10" [nzStep]="1" name="number"></nz-input-number>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">紧急程度</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <nz-radio-group [(ngModel)]="current_edit.urgency" nzName="radiogroup" name="urgency">
+                <label nz-radio nzValue="1">不急</label>
+                <label nz-radio nzValue="2">一般</label>
+                <label nz-radio nzValue="3">急用</label>
+              </nz-radio-group>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">备注</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <input type="text" nz-input [(ngModel)]="current_edit.remarks" name="remarks"  />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+
+      <ng-container *ngIf="type === 'fallback'">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">损坏地点</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <input type="text" nz-input [(ngModel)]="current_edit.address" name="address" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">损坏程度</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <nz-radio-group [(ngModel)]="current_edit.urgency" nzName="radiogroup" name="urgency">
+                <label nz-radio nzValue="1">普通</label>
+                <label nz-radio nzValue="2">一般</label>
+                <label nz-radio nzValue="3">严重</label>
+              </nz-radio-group>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">备注</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <input type="text" nz-input [(ngModel)]="current_edit.remarks" name="remarks"  />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+
+
+      <ng-container *ngIf="type === 'borrow'">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">使用地点</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <input type="text" nz-input [(ngModel)]="current_edit.address" name="address" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">开始借用时间</nz-form-label>
+          <nz-form-control >
+            <nz-input-group >
+              <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="current_edit.startTime" name="startTime"></nz-date-picker>
+              <!--            <input type="text" nz-input [(ngModel)]="current_edit.startTime" name="startTime" />-->
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">归还时间</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="current_edit.endTime" name="endTime"></nz-date-picker>
+              <!--            <input type="text" nz-input [(ngModel)]="current_edit.endTime" name="endTime"  />-->
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">紧急情况</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <nz-radio-group [(ngModel)]="current_edit.urgency" nzName="radiogroup" name="urgency">
+                <label nz-radio nzValue="1">不急</label>
+                <label nz-radio nzValue="2">一般</label>
+                <label nz-radio nzValue="3">急用</label>
+              </nz-radio-group>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">备注</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <input type="text" nz-input [(ngModel)]="current_edit.remarks" name="remarks"  />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngIf="type === 'use'">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">使用地点</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <input type="text" nz-input [(ngModel)]="current_edit.address" name="address" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">备注</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <input type="text" nz-input [(ngModel)]="current_edit.remarks" name="remarks"  />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+    </form>
+  </ng-container>
+</nz-modal>
