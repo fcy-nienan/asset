@@ -1,0 +1,75 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar mz-side"
+            nzCollapsible
+            nzTheme="light"
+            nzWidth="200px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <h1>学院固定资产管理系统</h1>
+    </div>
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed" *ngIf="show_menu">
+      <ng-container *ngFor="let menu of menus">
+        <li nz-submenu class="mz-sub-menu" [nzTitle]="title"
+        >
+          <ng-template #title>
+            <span class="menu-icon"><i nz-icon [nzIconfont]="menu.icon"></i></span><span> {{menu.name}}</span>
+          </ng-template>
+          <ul>
+            <ng-container *ngFor="let child of menu.children">
+              <li nz-menu-item [nzMatchRouter]="true" [nzMatchRouterExact]="true">
+                <a routerLink="{{'/dashboard/'+menu.module+ '/'+child.url}}">{{child.name}}</a>
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+        </span>
+        <ul class="header-menu">
+          <li nz-dropdown [nzDropdownMenu]="menu">
+            {{current_user.userName || current_user.userName || '欢迎您！'}}
+          </li>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu nzSelectable>
+              <ng-container>
+                <li nz-menu-item (click)="signOut()">退出登录</li>
+              </ng-container>
+            </ul>
+          </nz-dropdown-menu>
+        </ul>
+      </div>
+    </nz-header>
+    <div class="white-bg">
+      <nz-page-header [nzTitle]="breadTitle">
+        <nz-breadcrumb nz-page-header-breadcrumb>
+          <nz-breadcrumb-item *ngFor="let item of breads">
+            <ng-container *ngIf="item.module ===true">
+              {{item.name}}
+            </ng-container>
+            <ng-container *ngIf="item.module !==true">
+              <a routerLink="{{item.url}}" >{{item.name}}</a>
+            </ng-container>
+          </nz-breadcrumb-item>
+        </nz-breadcrumb>
+      </nz-page-header>
+    </div>
+
+
+    <nz-content [className]="'common'">
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

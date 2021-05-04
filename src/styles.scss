@@ -1,1 +1,201 @@
 /* You can add global styles to this file, and also import other style files */
+
+.table-alert {
+  padding: 16px 0px;
+
+}
+
+.ant-page-header {
+  background: white;
+}
+
+.detail-wrapper {
+  padding: 32px 0;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.inner-content .detail-wrapper:first-child {
+  padding-top: 0;
+}
+
+.inner-content .detail-wrapper:last-child {
+  border: 0;
+}
+
+.detail-inner-content {
+  background: white;
+  height: auto;
+  margin: 0;
+}
+
+.detail-inner-content img {
+  max-width: 100%;
+}
+
+.detail-inner-title {
+  font-size: 16px;
+  font-weight: bolder;
+  margin-bottom: 16px;
+}
+
+.table-id-icon {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.edit-alarm {
+  font-size: 14px;
+  margin-right: 5px;
+  color: rgba(0, 0, 0, 0.45);
+  margin-top: -20px;
+  line-height: 30px;
+}
+
+.edit-alarm i {
+  margin-right: 5px;
+}
+
+.edit-step-title {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 0 32px 16px 32px;
+  border-bottom: #e9e9e9 1px solid;
+  margin: 0 -32px 24px -32px;
+}
+
+.edit-step-subtitle {
+  font-size: 14px;
+  line-height: 14px;
+  color: rgba(0, 0, 0, .85);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.edit-step-block {
+  margin: 24px;
+  background: white;
+  padding: 16px 32px;
+}
+
+.divider {
+  width: 4%;
+  margin: 0 0.5%;
+  display: inline-block;
+  height: 1px;
+  background: #333333;
+  margin-bottom: 7px;
+}
+
+.text-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.student-step {
+  margin-top: 20px;
+  padding: 20px 50px 0 50px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.student-step:last-child {
+  border-bottom: 0;
+}
+
+.table-desc {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  width: 140px;
+  margin: auto;
+}
+
+.promotion_channel-desc {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  width: 140px;
+  margin: auto;
+}
+
+.table-title {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  width: 140px;
+  margin: auto;
+}
+
+.table-name {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  width: 75px;
+  margin: auto;
+}
+
+.audit-info {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  width: 300px;
+  margin: auto;
+}
+
+.month-container {
+  display: flex;
+  width: 210px;
+  flex-wrap: wrap;
+}
+
+.month-container .day {
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  margin: 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.month-container .day-active {
+  border: 1px solid #FAAD14;
+  background: #FAAD14;
+}
+
+.message-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+}
+
+.center-text {
+  text-align: center;
+}
+

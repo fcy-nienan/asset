@@ -1,0 +1,134 @@
+<div class="login">
+  <div class="login-body">
+    <img src="../assets/logo.png" class="logo"/>
+    <div class="login-container">
+
+      <form nz-form *ngIf="model === 'login'" class="login-form" (ngSubmit)="login()">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入用户名!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input [(ngModel)]="user.email" name="account"  placeholder="请输入用户名" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入密码!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input [(ngModel)]="user.password" name="password" placeholder="请输入密码" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">登录</button>
+        <span><a class="login-form-forgot" (click)="forget_password_page()">忘记密码</a></span>
+        <span><a class="login-form-forgot" (click)="to_page('register')">注册</a></span>
+      </form>
+
+      <form nz-form *ngIf="model === 'register'" class="login-form" (ngSubmit)="register()">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入用户名!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input [(ngModel)]="user.userName" name="userName"  placeholder="请输入用户名" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入密码!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input [(ngModel)]="user.password" name="password" placeholder="请输入密码" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入密码!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input [(ngModel)]="confirm_password" name="confirm_password" placeholder="请再次输入密码" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入手机号!">
+            <nz-input-group nzPrefixIcon="phone">
+              <input type="text" nz-input [(ngModel)]="user.telephone" name="telephone" placeholder="请输入手机号" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入邮箱!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="text" nz-input [(ngModel)]="user.email" name="email" placeholder="请输入邮箱" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入个人签名!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="text" nz-input [(ngModel)]="user.signature" name="signature" placeholder="请输入个人签名" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">确认注册</button>
+        <span><a class="login-form-forgot" (click)="to_page('login')">已有账号?立即登录</a></span>
+      </form>
+
+      <form nz-form *ngIf="model === 'forget_password'" class="login-form" (ngSubmit)="change_password()">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入邮箱!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input [(ngModel)]="user.email" name="email"  placeholder="请输入邮箱" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入邮箱验证码"  [nzSm]="16">
+            <nz-input-group nzPrefixIcon="lock">
+              <input [(ngModel)]="email_code" name="code" nz-input placeholder=验证码  [maxLength]="6" pattern="^\d{6}$" required/>
+            </nz-input-group>
+          </nz-form-control>
+          <nz-form-control [nzSm]="4">
+            <button nz-button type="button"  (click)="forget_password_send_code()">
+              {{ has_send_code ?  send_code_timeout + '秒后重新获取' : '获取验证码 '}}
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请输入新密码!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input [(ngModel)]="user.password" name="password" placeholder="请输入新密码" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="请再次输入新密码!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input [(ngModel)]="confirm_password" name="confirm_password" placeholder="请再次输入新密码" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">确认</button>
+        <span><a class="login-form-forgot" (click)="to_page('login')">已有账号?立即登录</a></span>
+        <span><a class="login-form-forgot" (click)="to_page('register')">注册</a></span>
+      </form>
+      <nz-result *ngIf="display_success_result"
+        nzStatus="success"
+        [nzTitle]="result_string"
+        [nzSubTitle]="result_string"
+      >
+        <div nz-result-extra>
+          <button nz-button nzType="primary" (click)="to_page('login')">立即登录</button>
+        </div>
+      </nz-result>
+
+
+
+    </div>
+    <img  src="../assets/index_bottom.png" class="bottom-banner"/>
+  </div>
+  <div class="copy-right">
+    <span>版权所有:上海墨说科教设备有限公司</span>
+    <a class="copy-right-link" style="margin-left: 10px;" href="http://beian.miit.gov.cn/state/outPortal/loginPortal.action" target="_blank">沪ICP备18013758号</a>
+  </div>
+
+</div>
