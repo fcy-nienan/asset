@@ -9,18 +9,18 @@
     <input nz-input nzAllowClear [(ngModel)]="search_params.telephone"  name="telephone"  placeholder="电话" nzSize="default" />
   </nz-descriptions-item>
   <nz-descriptions-item nzTitle="级别" nzSpan="1">
-    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="级别" nzSize="default" [(ngModel)]="search_params.jobLevel">
-      <nz-option nzLabel="普通学生用户" nzValue=1></nz-option>
-      <nz-option nzLabel="教师用户" nzValue=2></nz-option>
-      <nz-option nzLabel="管理员" nzValue=3></nz-option>
-      <nz-option nzLabel="超级管理员" nzValue=4></nz-option>
+    <nz-select name="jobLevel" nzSize="default" [(ngModel)]="search_params.jobLevel">
+      <nz-option [nzLabel]="'普通学生用户'" [nzValue]=1></nz-option>
+      <nz-option [nzLabel]="'教师用户'" [nzValue]=2></nz-option>
+      <nz-option [nzLabel]="'管理员'" [nzValue]=3></nz-option>
+      <nz-option [nzLabel]="'超级管理员'" [nzValue]=4></nz-option>
     </nz-select>
   </nz-descriptions-item>
   <nz-descriptions-item nzTitle="状态">
-    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="状态" nzSize="default" [(ngModel)]="search_params.status">
-      <nz-option nzLabel="未审核" nzValue=0></nz-option>
-      <nz-option nzLabel="冻结" nzValue=1></nz-option>
-      <nz-option nzLabel="正常" nzValue=2></nz-option>
+    <nz-select name="status"  nzSize="default" [(ngModel)]="search_params.status">
+      <nz-option [nzLabel]="'未审核'" [nzValue]=0></nz-option>
+      <nz-option [nzLabel]="'冻结'" [nzValue]=1></nz-option>
+      <nz-option [nzLabel]="'正常'" [nzValue]=2></nz-option>
     </nz-select>
   </nz-descriptions-item>
   <nz-descriptions-item nzSpan="2">
@@ -98,23 +98,26 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">级别</nz-form-label>
         <nz-form-control>
-          <nz-input-group>
-            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="级别" nzSize="default" [(ngModel)]="current_user.jobLevel">
-              <nz-option nzLabel="普通学生用户" nzValue=1></nz-option>
-              <nz-option nzLabel="教师用户" nzValue=2></nz-option>
-              <nz-option nzLabel="管理员" nzValue=3></nz-option>
-              <nz-option nzLabel="超级管理员" nzValue=4></nz-option>
+          <!-- <nz-input-group> -->
+            <nz-select name="jobLevel1" nzSize="default" [(ngModel)]="current_user.jobLevel">
+              <nz-option [nzLabel]="'普通学生用户'" [nzValue]="1"></nz-option>
+              <nz-option [nzLabel]="'教师用户'" [nzValue]="2"></nz-option>
+              <nz-option [nzLabel]="'管理员'" [nzValue]="3"></nz-option>
+              <nz-option [nzLabel]="'超级管理员'" [nzValue]="9"></nz-option>
             </nz-select>
-          </nz-input-group>
+          <!-- </nz-input-group> -->
         </nz-form-control>
       </nz-form-item>
-
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">请输入个人签名</nz-form-label>
+        <nz-form-label [nzSpan]="6">状态</nz-form-label>
         <nz-form-control>
-          <nz-input-group>
-            <input type="text" nz-input [(ngModel)]="current_user.signature" name="signature" placeholder="请输入个人签名" />
-          </nz-input-group>
+          <!-- <nz-input-group> -->
+            <nz-select name="status1" nzSize="default" [(ngModel)]="current_user.status">
+              <nz-option [nzLabel]="'未审核'" [nzValue]="0"></nz-option>
+              <nz-option [nzLabel]="'冻结'" [nzValue]="1"></nz-option>
+              <nz-option [nzLabel]="'正常'" [nzValue]="2"></nz-option>
+            </nz-select>
+          <!-- </nz-input-group> -->
         </nz-form-control>
       </nz-form-item>
     </form>

@@ -6,7 +6,7 @@ import {logService} from "../../services/log.service";
 import {AnyObject, fileService} from "../../services/file.service";
 import {wareService} from "../../services/ware.service";
 import {Router} from "@angular/router";
-import {UserList, WareHouse} from "../../model/User";
+import {User, UserList, WareHouse} from "../../model/User";
 
 @Component({
   selector: 'app-user-list',
@@ -67,22 +67,10 @@ export class UserListComponent implements OnInit {
   current_user:   AnyObject = {};
   show_deit_user(data: WareHouse) {
     this.title = "编辑用户";
-    this.show_edit = true;
+    console.log(data)
     this.current_user = this.file_service.deepCopy(data);
-  }
-  add_user(){
-    this.title = "添加用户";
+    console.log(this.current_user)
     this.show_edit = true;
-  }
-  confirm_add_user(){
-    this.user_service.addUser({...this.current_user}).subscribe(res=>{
-      if (res.code === 200){
-        this.nz_message.success("编辑成功!");
-        this.show_edit = false;
-      }else {
-        this.nz_message.error(res.msg);
-      }
-    })
   }
   user_detail(data: UserList){
     this.user_service.userDetail({...data}).subscribe(res=>{
@@ -96,14 +84,27 @@ export class UserListComponent implements OnInit {
   }
 
   confirm_edit() {
-    this.user_service.modifyUser({...this.current_user}).subscribe(res=>{
-      if (res.code === 200){
-        this.nz_message.success("编辑成功!");
-        this.show_edit = false;
-      }else {
-        this.nz_message.error(res.msg);
-      }
-    })
+    if(!this.current_user.id) {
+      this.user_service.addUser({...this.current_user}).subscribe(res=>{
+        if (res.code === 200){
+          this.nz_message.success("新增用户成功!");
+          this.show_edit = false;
+          this.search();
+        }else {
+          this.nz_message.error(res.msg);
+        }
+      })
+    }else {
+      this.user_service.modifyUser({...this.current_user}).subscribe(res=>{
+        if (res.code === 200){
+          this.nz_message.success("编辑成功!");
+          this.show_edit = false;
+        }else {
+          this.nz_message.error(res.msg);
+        }
+      })
+    }
+    
   }
 
   handleCancel() {
@@ -111,7 +112,9 @@ export class UserListComponent implements OnInit {
   }
 
   delete_user(data: WareHouse) {
-    this.user_service.removeUser({...this.current_user}).subscribe(res => {
+    this.current_user = this.file_service.deepCopy(data);
+    
+    this.user_service.removeUser({userId: this.current_user.id}).subscribe(res => {
       if (res.code === 200){
         this.nz_message.success("刪除成功!");
       }else {
@@ -121,6 +124,8 @@ export class UserListComponent implements OnInit {
   }
 
   click_add_user() {
+    this.current_user = new User();
+    this.title = "添加用户";
     this.show_edit = true;
   }
 }
