@@ -53,10 +53,11 @@ export class AssetListComponent implements OnInit {
     // this.current_edit.endTime.replace("T"," ");
     // 2021-05-20T18:20:58.250Z
     this.asset_service.postApply({...this.current_edit}).subscribe(res => {
-      if (res.code === 2000){
+      if (res.code === 200){
         this.show_create_asset = false;
         this.nz_message.success("操作成功!");
         console.log(res);
+        this.search();
       }else {
         this.nz_message.error(res.msg);
       }

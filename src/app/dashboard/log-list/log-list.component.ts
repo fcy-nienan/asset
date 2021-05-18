@@ -75,6 +75,7 @@ export class LogListComponent implements OnInit {
     this.asset_service.disagreeApply({applyId:data.id}).subscribe(res=>{
       if (res.code === 200){
         this.nz_message.success("操作成功!");
+        this.search();
       }else {
         this.nz_message.error(res.msg);
       }
@@ -82,7 +83,7 @@ export class LogListComponent implements OnInit {
   }
   current_view_apply_detail: AnyObject = {};
   apply_detail(data: AssetApplyList) {
-    this.asset_service.assetApplyDetail({applyId:data.id}).subscribe(res=>{
+    this.asset_service.assetApplyDetail({applyId:data.assetId}).subscribe(res=>{
       if (res.code === 200){
         this.current_view_apply_detail = this.file_service.deepCopy(res.result);
       }else {

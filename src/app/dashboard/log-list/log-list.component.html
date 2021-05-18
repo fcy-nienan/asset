@@ -36,10 +36,10 @@
   <tr *ngFor="let data of basicTable.data">
     <td>{{data.assetId}}</td>
     <td>{{data.userName}}</td>
-    <td>{{data.type}}</td>
-    <td>{{data.number}}</td>
-    <td>{{data.number}}</td>
-    <td>{{data.number}}</td>
+    <td>{{data.type | mzDict: 'usage_type'}}</td>
+    <td>{{data.number || 0}}</td>
+    <td>{{data.startTime}}</td>
+    <td>{{data.result | mzDict: 'deal_result'}}</td>
     <td>
       <a (click)="agree(data)">同意</a>
       <nz-divider  nzType="vertical"></nz-divider>

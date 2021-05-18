@@ -99,6 +99,7 @@ export class UserListComponent implements OnInit {
         if (res.code === 200){
           this.nz_message.success("编辑成功!");
           this.show_edit = false;
+          this.search();
         }else {
           this.nz_message.error(res.msg);
         }
@@ -117,6 +118,7 @@ export class UserListComponent implements OnInit {
     this.user_service.removeUser({userId: this.current_user.id}).subscribe(res => {
       if (res.code === 200){
         this.nz_message.success("刪除成功!");
+        this.search();
       }else {
         this.nz_message.error(res.msg);
       }
