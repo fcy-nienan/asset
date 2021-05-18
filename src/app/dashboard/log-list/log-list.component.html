@@ -12,7 +12,12 @@
     <input nz-input nzAllowClear [(ngModel)]="search_params.userName" name="userName"   placeholder="姓名" nzSize="default" />
   </nz-descriptions-item>
   <nz-descriptions-item nzTitle="状态">
-    <input nz-input nzAllowClear [(ngModel)]="search_params.status" name="status"   placeholder="状态" nzSize="default" />
+    <nz-select [(ngModel)]="search_params.status" nzSize="default" name="status">
+      <nz-option [nzLabel]="'待处理'" [nzValue]="0"></nz-option>
+      <nz-option [nzLabel]="'同意'" [nzValue]="1"></nz-option>
+      <nz-option [nzLabel]="'拒绝'" [nzValue]="2"></nz-option>
+      <nz-option [nzLabel]="'归还'" [nzValue]="3"></nz-option>
+    </nz-select>
   </nz-descriptions-item>
   <nz-descriptions-item>
     <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="clear_search()">清空</button>
