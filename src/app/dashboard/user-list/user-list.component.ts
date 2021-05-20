@@ -29,7 +29,7 @@ export class UserListComponent implements OnInit {
   search_params = {
     currPage: 0,
     pageSize : 10,
-    id: null,
+    userId: null,
     jobLevel: null,
     userName: null,
     telephone: null,
@@ -44,7 +44,7 @@ export class UserListComponent implements OnInit {
     this.search_params = {
       currPage: 0,
       pageSize : 10,
-      id: null,
+      userId: null,
       jobLevel: null,
       userName: null,
       telephone: null,
@@ -105,7 +105,7 @@ export class UserListComponent implements OnInit {
         }
       })
     }
-    
+
   }
 
   handleCancel() {
@@ -114,7 +114,7 @@ export class UserListComponent implements OnInit {
 
   delete_user(data: WareHouse) {
     this.current_user = this.file_service.deepCopy(data);
-    
+
     this.user_service.removeUser({userId: this.current_user.id}).subscribe(res => {
       if (res.code === 200){
         this.nz_message.success("刪除成功!");

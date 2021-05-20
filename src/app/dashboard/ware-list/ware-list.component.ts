@@ -71,6 +71,7 @@ export class WareListComponent implements OnInit {
       if (res.code === 200){
         this.nz_message.success("编辑成功!");
         this.show_edit = false;
+        this.search();
       }else {
         this.nz_message.error(res.msg);
       }
