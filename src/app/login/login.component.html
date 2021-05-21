@@ -4,16 +4,18 @@
     <div class="login-container">
       <form nz-form *ngIf="model === 'login'"  (ngSubmit)="login()">
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="useremail" nzRequired>用户名</nz-form-label>
           <nz-form-control nzErrorTip="请输入用户名!">
             <nz-input-group nzPrefixIcon="user">
-              <input type="text" nz-input [(ngModel)]="user.email" name="account"  placeholder="请输入用户名" />
+              <input type="text" nz-input [(ngModel)]="user.email" id="useremail" name="account"  placeholder="请输入用户名" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>密码</nz-form-label>
           <nz-form-control nzErrorTip="请输入密码!">
             <nz-input-group nzPrefixIcon="lock">
-              <input type="password" nz-input [(ngModel)]="user.password" name="password" placeholder="请输入密码" />
+              <input type="password" nz-input [(ngModel)]="user.password" id="checkPassword" name="password" placeholder="请输入密码" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
@@ -24,44 +26,50 @@
 
       <form nz-form *ngIf="model === 'register'" class="login-form" (ngSubmit)="register()">
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="userName" nzRequired>用户名</nz-form-label>
           <nz-form-control nzErrorTip="请输入用户名!">
             <nz-input-group nzPrefixIcon="user">
-              <input type="text" nz-input [(ngModel)]="user.userName" name="userName"  placeholder="请输入用户名" />
+              <input type="text" nz-input [(ngModel)]="user.userName" id="userName" name="userName"  placeholder="请输入用户名" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password11" nzRequired>密码</nz-form-label>
           <nz-form-control nzErrorTip="请输入密码!">
             <nz-input-group nzPrefixIcon="lock">
-              <input type="password" nz-input [(ngModel)]="user.password" name="password" placeholder="请输入密码" />
+              <input type="password" nz-input [(ngModel)]="user.password" id="password11" name="password" placeholder="请输入密码" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="confirm_password" nzRequired>密码</nz-form-label>
           <nz-form-control nzErrorTip="请输入密码!">
             <nz-input-group nzPrefixIcon="lock">
-              <input type="password" nz-input [(ngModel)]="confirm_password" name="confirm_password" placeholder="请再次输入密码" />
+              <input type="password" nz-input [(ngModel)]="confirm_password" id="confirm_password" name="confirm_password" placeholder="请再次输入密码" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-control nzErrorTip="请输入手机号!">
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="telephone" nzRequired>手机号</nz-form-label>
+          <nz-form-control nzErrorTip="请输入手机号!" >
             <nz-input-group nzPrefixIcon="phone">
-              <input type="text" nz-input [(ngModel)]="user.telephone" name="telephone" placeholder="请输入手机号" />
+              <input type="text" nz-input [(ngModel)]="user.telephone" id="telephone" name="telephone" placeholder="请输入手机号" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email111" nzRequired>邮箱</nz-form-label>
           <nz-form-control nzErrorTip="请输入邮箱!">
             <nz-input-group nzPrefixIcon="lock">
-              <input type="text" nz-input [(ngModel)]="user.email" name="email" placeholder="请输入邮箱" />
+              <input type="text" nz-input [(ngModel)]="user.email" id="email111" name="email" placeholder="请输入邮箱" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="signature" nzRequired>个人签名</nz-form-label>
           <nz-form-control nzErrorTip="请输入个人签名!">
             <nz-input-group nzPrefixIcon="lock">
-              <input type="text" nz-input [(ngModel)]="user.signature" name="signature" placeholder="请输入个人签名" />
+              <input type="text" nz-input [(ngModel)]="user.signature" id="signature" name="signature" placeholder="请输入个人签名" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
@@ -71,17 +79,19 @@
 
       <form nz-form *ngIf="model === 'forget_password'" class="login-form" (ngSubmit)="change_password()">
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="forget_password_email" nzRequired>邮箱</nz-form-label>
           <nz-form-control nzErrorTip="请输入邮箱!">
             <nz-input-group nzPrefixIcon="user">
-              <input type="text" nz-input [(ngModel)]="user.email" name="email"  placeholder="请输入邮箱" />
+              <input type="text" nz-input [(ngModel)]="user.email" id="forget_password_email" name="email"  placeholder="请输入邮箱" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
-          <nz-form-control nzErrorTip="请输入邮箱验证码"  [nzSm]="16">
+          <nz-form-label [nzSm]="6" [nzXs]="16" nzFor="email_code" nzRequired>验证码</nz-form-label>
+          <nz-form-control nzErrorTip="请输入邮箱验证码"  [nzSm]="12">
             <nz-input-group nzPrefixIcon="lock">
-              <input [(ngModel)]="email_code" name="code" nz-input placeholder=验证码  [maxLength]="6" pattern="^\d{6}$" required/>
+              <input [(ngModel)]="email_code" name="code" id="email_code" nz-input placeholder=验证码  [maxLength]="6" pattern="^\d{6}$" required/>
             </nz-input-group>
           </nz-form-control>
           <nz-form-control [nzSm]="4">
@@ -91,16 +101,18 @@
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="forget_password_email_22" nzRequired>邮箱</nz-form-label>
           <nz-form-control nzErrorTip="请输入新密码!">
             <nz-input-group nzPrefixIcon="lock">
-              <input type="password" nz-input [(ngModel)]="user.password" name="password" placeholder="请输入新密码" />
+              <input type="password" nz-input [(ngModel)]="user.password"  id="forget_password_email_22" name="password" placeholder="请输入新密码" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="confirm_password_11" nzRequired>邮箱</nz-form-label>
           <nz-form-control nzErrorTip="请再次输入新密码!">
             <nz-input-group nzPrefixIcon="lock">
-              <input type="password" nz-input [(ngModel)]="confirm_password" name="confirm_password" placeholder="请再次输入新密码" />
+              <input type="password" nz-input [(ngModel)]="confirm_password" id="confirm_password_11" name="confirm_password" placeholder="请再次输入新密码" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
