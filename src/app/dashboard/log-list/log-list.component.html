@@ -29,6 +29,7 @@
   <thead>
   <tr>
     <th>资产编号</th>
+    <th>资产名</th>
     <th>申请人</th>
     <th>申请类型</th>
     <th>申请数量</th>
@@ -40,6 +41,7 @@
   <tbody>
   <tr *ngFor="let data of basicTable.data">
     <td>{{data.assetId}}</td>
+    <td>{{data.assetName}}</td>
     <td>{{data.userName}}</td>
     <td>{{data.type | mzDict: 'usage_type'}}</td>
     <td>{{data.number || 0}}</td>
@@ -57,6 +59,36 @@
 </nz-table>
 
 
+<nz-modal [(nzVisible)]="show_detail" [nzTitle]="'申请详情'" (nzOnCancel)="handleCancel()">
+  <ng-container *nzModalContent>
+    <nz-descriptions [nzColumn]="2" [nzColon]="true">
+      <nz-descriptions-item nzTitle="地址">
+        {{current_view_apply_detail.address}}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="资产名">
+        {{current_view_apply_detail.assetName}}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="资产类型">
+        {{current_view_apply_detail.assetVersion}}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="开始时间">
+        {{current_view_apply_detail.startTime}}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="结束时间">
+        {{current_view_apply_detail.endTime}}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="备注">
+        {{current_view_apply_detail.remarks}}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="紧急程度">
+        {{current_view_apply_detail.urgency}}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="姓名">
+        {{current_view_apply_detail.userName}}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-modal>
 
 
 

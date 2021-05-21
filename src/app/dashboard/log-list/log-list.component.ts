@@ -82,14 +82,19 @@ export class LogListComponent implements OnInit {
     })
   }
   current_view_apply_detail: AnyObject = {};
+  show_detail = false;
   apply_detail(data: AssetApplyList) {
-    this.asset_service.assetApplyDetail({applyId:data.assetId}).subscribe(res=>{
+    this.asset_service.assetApplyDetail({id:data.id}).subscribe(res=>{
       if (res.code === 200){
         this.current_view_apply_detail = this.file_service.deepCopy(res.result);
+        this.show_detail=true;
       }else {
         this.nz_message.error(res.msg);
       }
     })
+  }
+  handleCancel(){
+    this.show_detail = false;
   }
 
 

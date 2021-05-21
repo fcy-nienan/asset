@@ -41,6 +41,11 @@ export class DataPipe implements PipeTransform {
       0:"未审核",
       1:"冻结",
       2:"正常"
+    },
+    urgency_status:{
+      1:"不急",
+      2:"一般",
+      3:"急用"
     }
   }
   transform(value: unknown, ...args: unknown[]): string {

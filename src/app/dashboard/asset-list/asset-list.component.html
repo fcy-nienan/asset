@@ -52,10 +52,10 @@
       <a (click)="show_dialog('borrow',data)">借用</a>
       <nz-divider nzType="vertical"></nz-divider>
       <a (click)="show_dialog('apply',data)">申请</a>
-      <nz-divider nzType="vertical"></nz-divider>
-      <a (click)="show_dialog('use',data)">使用</a>
-      <nz-divider nzType="vertical"></nz-divider>
-      <a (click)="show_dialog('fallback',data)">反馈</a>
+      <!-- <nz-divider nzType="vertical"></nz-divider>
+      <a (click)="show_dialog('use',data)">使用</a> -->
+      <!-- <nz-divider nzType="vertical"></nz-divider> -->
+      <!-- <a (click)="show_dialog('fallback',data)">反馈</a> -->
     </td>
   </tr>
   </tbody>
@@ -204,6 +204,14 @@
             <nz-input-group >
               <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="current_edit.startTime" name="startTime"></nz-date-picker>
               <!--            <input type="text" nz-input [(ngModel)]="current_edit.startTime" name="startTime" />-->
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">数量</nz-form-label>
+          <nz-form-control>
+            <nz-input-group >
+              <nz-input-number [(ngModel)]="current_edit.number" [nzMin]="1" [nzMax]="10" [nzStep]="1" name="number"></nz-input-number>
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
